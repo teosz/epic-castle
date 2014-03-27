@@ -40,19 +40,21 @@ $(document).ready(function()
       var plane = new THREE.Mesh(new THREE.PlaneGeometry(300, 300), new THREE.MeshNormalMaterial());
       map.add( plane );
       var cube;
-      for(var i=1;i<=15;j++)
-          for(var j=1;j<=15;j++)
+      for(var i=1;i<=5;i++)
+          for(var j=1;j<=5;j++)
           {
-            	cube = new THREE.Mesh( new THREE.CubeGeometry( 10, 10, 10 ), new THREE.MeshNormalMaterial() );
-                cube.position.x = i * 10;
-                cube.position.z = j * 10;
+            	cube = new THREE.Mesh( new THREE.CubeGeometry( 10, 10, 20 ), new THREE.MeshNormalMaterial() );
+                cube.position.x = (i * 50) - 150;
+                cube.position.y = (j * 50) - 150;
 
                 map.add(cube);
           }
       plane.overdraw = true;
-      scene.add(plane);
+      scene.add(map);
+ 
+        renderer.render(scene, camera);
  
       // apelez animiatia
           
-      animate();
+     // animate();
        });
