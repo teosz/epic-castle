@@ -3,7 +3,7 @@ $(document).ready(function()
       var angularSpeed = 0.2; 
       var lastTime = 0;
  
-      // aici rotesc in functie de timp ca sa nu fac un while ( frumosetea js )
+      // aici rotesc in functie de timp ca sa nu fac un while ( frumusetea js )
       function animate(){
         // calculez timpul
         var time = (new Date()).getTime();
