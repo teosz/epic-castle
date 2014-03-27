@@ -1,6 +1,6 @@
 $(document).ready(function()
       {
-      var angularSpeed = 0.2; 
+      var angularSpeed = 0.2;
       var lastTime = 0;
  
       // aici rotesc in functie de timp ca sa nu fac un while ( frumusetea js )
@@ -36,7 +36,19 @@ $(document).ready(function()
       var scene = new THREE.Scene();
  
       // planul
+      var map  = new THREE.Object3D();
       var plane = new THREE.Mesh(new THREE.PlaneGeometry(300, 300), new THREE.MeshNormalMaterial());
+      map.add( plane );
+      var cube;
+      for(var i=1;i<=15;j++)
+          for(var j=1;j<=15;j++)
+          {
+            	cube = new THREE.Mesh( new THREE.CubeGeometry( 10, 10, 10 ), new THREE.MeshNormalMaterial() );
+                cube.position.x = i * 10;
+                cube.position.z = j * 10;
+
+                map.add(cube);
+          }
       plane.overdraw = true;
       scene.add(plane);
  
