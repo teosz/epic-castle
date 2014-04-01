@@ -122,20 +122,50 @@ ray.ray.direction.set( 0, -1, 0 );
       var lemn = new THREE.MeshLambertMaterial({
         map: THREE.ImageUtils.loadTexture('crate.jpg')
       });
-geometry = new THREE.PlaneGeometry( 2000, 2000, 100, 100 );
+geometry = new THREE.PlaneGeometry( 300, 300, 100, 100 );
 geometry.applyMatrix( new THREE.Matrix4().makeRotationX( - Math.PI / 2 ) );
 
-
+var lemn = new THREE.MeshBasicMaterial({
+        map: THREE.ImageUtils.loadTexture('crate.jpg')
+      });
 var stone = THREE.ImageUtils.loadTexture('stone-wall.jpg');
 stone.wrapS = stone.wrapT = THREE.RepeatWrapping;
-stone.repeat.set( 32, 32 );
+stone.repeat.set( 64, 64 );
 stonematerial = new THREE.MeshBasicMaterial( { map: stone } );
 mesh = new THREE.Mesh( geometry, stonematerial );
 scene.add( mesh );
+var b1 = new THREE.Mesh(new THREE.CubeGeometry(300, 20, 10), lemn);
+b1.position.z = 150;
+b1.position.y = 10;
+scene.add(b1);
+var b2 = new THREE.Mesh(new THREE.CubeGeometry(300, 20, 10), lemn);
+b2.position.z = -150;
+b2.position.y = 10;
+scene.add(b2);
+
+var b3 = new THREE.Mesh(new THREE.CubeGeometry(10, 20, 300), lemn);
+b3.position.x = 150;
+b3.position.y = 10;
+scene.add(b3);
 
 
+var b4 = new THREE.Mesh(new THREE.CubeGeometry(10, 20, 300), lemn);
+b4.position.x = -150;
+b4.position.y = 10;
+scene.add(b4);
+var cube
+for(var i=1;i<=14;i++)
+ {
 
-//
+
+    cube = new THREE.Mesh(new THREE.CubeGeometry(10, 20, 10), lemn);
+    cube.position.x = (i*20)-150;
+    cube.position.y = 10;
+    scene.add(cube);
+
+
+ }
+
 
 renderer = new THREE.WebGLRenderer();
 renderer.setClearColor( 0xffffff );
