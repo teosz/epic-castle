@@ -128,8 +128,11 @@ geometry.applyMatrix( new THREE.Matrix4().makeRotationX( - Math.PI / 2 ) );
 
 var stone = THREE.ImageUtils.loadTexture('stone-wall.jpg');
 stone.wrapS = stone.wrapT = THREE.RepeatWrapping;
-stone.repeat.set( 32, 32 );mesh = new THREE.Mesh( geometry, stonematerial );
+stone.repeat.set( 32, 32 );
+stonematerial = new THREE.MeshBasicMaterial( { map: stone } );
+mesh = new THREE.Mesh( geometry, stonematerial );
 scene.add( mesh );
+
 
 
 //
