@@ -1,27 +1,20 @@
 $(document).ready(function()
       {
-      var angularSpeed = 0.2;
+          // revolutions per second
+      var angularSpeed = 0.2; 
       var lastTime = 0;
- 
-      // aici rotesc in functie de timp ca sa nu fac un while ( frumusetea js )
-      function animate(){
-        // calculez timpul
-        var time = (new Date()).getTime();
-        var timeDiff = time - lastTime;
-        var angleChange = angularSpeed * timeDiff * 2 * Math.PI / 1000;
-        plane.rotation.z += angleChange;
-        lastTime = time;
- 
-        // rendare
+     function animate(){
+        // update
+        // render
         renderer.render(scene, camera);
  
-        // pe un frame nu randez asta #recursivitate
+        // request new frame
         requestAnimationFrame(function(){
             animate();
         });
       }
-      
-      // randare
+ 
+      // renderer
       var renderer = new THREE.WebGLRenderer();
       renderer.setSize(window.innerWidth, window.innerHeight);
       document.body.appendChild(renderer.domElement);
@@ -32,29 +25,44 @@ $(document).ready(function()
       camera.position.z = 400;
       camera.rotation.x = 45 * (Math.PI / 180);
  
-      // scena
+      // scene
       var scene = new THREE.Scene();
- 
-      // planul
-      var map  = new THREE.Object3D();
-      var plane = new THREE.Mesh(new THREE.PlaneGeometry(300, 300), new THREE.MeshNormalMaterial());
-      map.add( plane );
+      
+      // material
+      var lemn  = new THREE.MeshLambertMaterial({
+        map: THREE.ImageUtils.loadTexture('crate.jpg')
+      });
+      var stone =  THREE.ImageUtils.loadTexture('stone-wall.jpg');      
+      stone.wrapS = stone.wrapT = THREE.RepeatWrapping;
+      stone.repeat.set( 4, 4 );
+      stonematerial = new THREE.MeshBasicMaterial( { map: stone } );
+      var map = new THREE.Object3D();
+      
+      var plane = new THREE.Mesh(new THREE.PlaneGeometry(300, 300), stonematerial);
+      map.add( plane );          
       var cube;
+      // cube
       for(var i=1;i<=5;i++)
           for(var j=1;j<=5;j++)
           {
-            	cube = new THREE.Mesh( new THREE.CubeGeometry( 10, 10, 20 ), new THREE.MeshNormalMaterial() );
-                cube.position.x = (i * 50) - 150;
-                cube.position.y = (j * 50) - 150;
-
-                map.add(cube);
-          }
+              cube = new THREE.Mesh(new THREE.CubeGeometry(10, 10, 10), lemn);
+              cube.position.x = (i * 50) - 150;
+              cube.position.y = (j * 50) - 150;
+              cube.position.z = 5;
+              scene.add(cube);
+        }
+      // add subtle ambient lighting
       plane.overdraw = true;
       scene.add(map);
+      var ambientLight = new THREE.AmbientLight(0xbbbbbb);
+      scene.add(ambientLight);
+
+      
+      // directional lighting
+      var directionalLight = new THREE.DirectionalLight(0xffffff);
+      directionalLight.position.set(1, 1, 1).normalize();
+      scene.add(directionalLight);
  
-        renderer.render(scene, camera);
- 
-      // apelez animiatia
-          
-     // animate();
-       });
+      // start animation
+      animate();
+      });
