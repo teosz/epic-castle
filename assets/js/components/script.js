@@ -1,5 +1,12 @@
+function win(poz)
+{
+    console.log(poz);
+    if(poz.x  != 0 || poz.z != 0  )
+        return 1;
+    return 0;
+}
 $(document).ready(function()
-      {
+{
       	var camera, scene, renderer;
 var geometry, material, mesh;
 var controls,time = Date.now();
@@ -190,30 +197,14 @@ renderer.setSize( window.innerWidth, window.innerHeight );
 function animate() {
 
 requestAnimationFrame( animate );
-
+if(win(controls.getObject().position))
+{
+   $('#blocker').remove();
+   $('canvas').remove();
+   $('#win').show();
+}
 //
-
-controls.isOnObject( false );
-
-ray.ray.origin.copy( controls.getObject().position );
-ray.ray.origin.y -= 10;
-
-var intersections = ray.intersectObjects( objects );
-
-if ( intersections.length > 0 ) {
-
-var distance = intersections[ 0 ].distance;
-
-if ( distance > 0 && distance < 10 ) {
-
-controls.isOnObject( true );
-
-}
-
-}
-
 controls.update( Date.now() - time );
-
 renderer.render( scene, camera );
 
 time = Date.now();
