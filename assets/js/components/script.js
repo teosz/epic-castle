@@ -1,7 +1,17 @@
+function exitFullscreen() {
+  if(document.exitFullscreen) {
+    document.exitFullscreen();
+  } else if(document.mozCancelFullScreen) {
+    document.mozCancelFullScreen();
+  } else if(document.webkitExitFullscreen) {
+    document.webkitExitFullscreen();
+  }
+}
 function win(poz)
 {
     console.log(poz);
-    if(poz.x  != 0 || poz.z != 0  )
+    
+    if(poz.x  <  -120 && poz.z < -120  )
         return 1;
     return 0;
 }
@@ -199,9 +209,12 @@ function animate() {
 requestAnimationFrame( animate );
 if(win(controls.getObject().position))
 {
+   
    $('#blocker').remove();
    $('canvas').remove();
+   exitFullscreen();
    $('#win').show();
+   
 }
 //
 controls.update( Date.now() - time );
