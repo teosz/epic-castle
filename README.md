@@ -1,4 +1,11 @@
 epic-castle
 ===========
 
-A realstic open source game
+open source game webgl example
+
+Demo
+====
+
+http://localhost:8080/epic-castle/
+
+
