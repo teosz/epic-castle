@@ -6,6 +6,6 @@ open source game webgl example
 Demo
 ====
 
-http://localhost:8080/epic-castle/
+(http://teosz.github.io/epic-castle/)http://teosz.github.io/epic-castle/
 
 
